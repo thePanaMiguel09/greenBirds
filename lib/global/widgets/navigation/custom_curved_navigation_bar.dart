@@ -20,11 +20,12 @@ class CustomCurvedNavigationBar extends StatelessWidget {
       color: const Color(0xFF26AD71),
       buttonBackgroundColor: const Color(0xFF26AD71),
       animationDuration: const Duration(milliseconds: 300),
+      animationCurve: Curves.easeInOut,
       items: const [
-        Icon(Icons.home, color: Colors.white, size: 30),
-        Icon(Icons.assignment, color: Colors.white, size: 30),
-        Icon(Icons.pin_drop, color: Colors.white, size: 30),
-        Icon(Icons.eco, color: Colors.white, size: 30),
+        Icon(Icons.home_outlined, color: Colors.white, size: 30),
+        Icon(Icons.assignment_outlined, color: Colors.white, size: 30),
+        Icon(Icons.pin_drop_outlined, color: Colors.white, size: 30),
+        Icon(Icons.eco_outlined, color: Colors.white, size: 30),
         Icon(Icons.info_outline, color: Colors.white, size: 30),
       ],
     );

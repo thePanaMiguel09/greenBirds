@@ -8,13 +8,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        body: const MainScreen(),
-        // bottomNavigationBar: CurvedNavigationBar(
-        //   items: items),
-      ),
-    );
+    return MaterialApp(title: 'Material App', home: const MainScreen());
   }
 }
