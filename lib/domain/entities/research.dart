@@ -3,8 +3,8 @@ import 'package:green_birds/domain/entities/coordinate.dart';
 class Research {
   final String name;
   final String? description;
-  final List<String>? objectives = [];
-  final List<String>? results = [];
+  final List<String> objectives;
+  final List<String> results;
   final DateTime? startDate;
   final DateTime? endDate;
   final String status;
@@ -16,6 +16,8 @@ class Research {
   Research({
     required this.name,
     this.description,
+    this.objectives = const [],
+    this.results = const [],
     this.startDate,
     this.endDate,
     required this.status,
