@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_birds/presentation/providers/researchs_provider.dart';
+import 'package:green_birds/presentation/widgets/researchs_scroll.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,7 +17,9 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
-      body: researchProvier.initLoading ? Text('Cargando') : Text('Data'),
+      body: researchProvier.initLoading
+          ? Text('Cargando')
+          : ResearchHorizontalList(researches: researchProvier.researchs),
     );
   }
 }
