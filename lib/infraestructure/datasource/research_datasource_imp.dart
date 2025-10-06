@@ -7,19 +7,17 @@ import 'package:green_birds/infraestructure/models/research_model.dart';
 import 'package:http/http.dart' as http;
 
 class ResearchDatasourceImp implements ResearchDatasource {
-  final String url = dotenv.env['API_BASE_URL']!;
-  final String token = dotenv.env['TOKEN']!;
-
-  Map<String, String> get headers => {
-    "Content-Type": "application/json",
-    'Authorization': "Bearer $token",
-  };
+  static String url = dotenv.env['API_BASE_URL']!;
+  static String token = dotenv.env['TOKEN']!;
 
   @override
   Future<List<Research>> getResearchs() async {
     final response = await http.get(
       Uri.parse('$url/research'),
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': "Bearer $token",
+      },
     );
 
     if (response.statusCode == 200) {
