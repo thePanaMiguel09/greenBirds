@@ -11,8 +11,8 @@ class ResearchsProvider extends ChangeNotifier {
   ResearchsProvider({required this.researchRepository});
 
   Future<void> loadResearchs() async {
-    final researchs = await researchRepository.getResearchs();
-    researchs.addAll(researchs);
+    final researchsFetched = await researchRepository.getResearchs();
+    researchs.addAll(researchsFetched);
     initLoading = false;
     notifyListeners();
   }
