@@ -1,4 +1,5 @@
 import 'package:green_birds/domain/entities/coordinate.dart';
+import 'package:green_birds/domain/entities/locality.dart';
 
 class Research {
   final String name;
@@ -12,6 +13,7 @@ class Research {
   final String? domainVegetation;
   final int? height;
   final Coordinate? coordinates;
+  final Locality? locality;
 
   Research({
     required this.name,
@@ -25,5 +27,6 @@ class Research {
     this.domainVegetation,
     this.height,
     this.coordinates,
+    this.locality,
   });
 }
