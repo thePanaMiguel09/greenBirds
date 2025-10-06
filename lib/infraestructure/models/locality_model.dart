@@ -7,6 +7,7 @@ class LocalityModel {
   final String neighborhood;
   final String city;
   final String country;
+  final String state;
 
   LocalityModel({
     required this.id,
@@ -15,6 +16,7 @@ class LocalityModel {
     required this.neighborhood,
     required this.city,
     required this.country,
+    required this.state,
   });
 
   factory LocalityModel.fromJson(Map<String, dynamic> json) => LocalityModel(
@@ -24,8 +26,16 @@ class LocalityModel {
     neighborhood: json['neighborhood'],
     city: json['city'],
     country: json['country'],
+    state: json['state'],
   );
 
-  Locality toLocalityEntity() =>
-      Locality(id, name, village, neighborhood, city, country);
+  Locality toLocalityEntity() => Locality(
+    id: id,
+    name: name,
+    village: village,
+    neighborhood: neighborhood,
+    city: city,
+    country: country,
+    state: state,
+  );
 }

@@ -5,13 +5,15 @@ class Locality {
   final String neighborhood;
   final String city;
   final String country;
+  final String state;
 
-  Locality(
-    this.id,
-    this.name,
-    this.village,
-    this.neighborhood,
-    this.city,
-    this.country,
-  );
+  Locality({
+    required this.id,
+    required this.name,
+    required this.village,
+    required this.neighborhood,
+    required this.city,
+    required this.country,
+    required this.state,
+  });
 }
