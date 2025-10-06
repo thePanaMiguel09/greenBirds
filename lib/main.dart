@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:green_birds/infraestructure/datasource/research_datasource_imp.dart';
 import 'package:green_birds/infraestructure/repositories/research_repository_impl.dart';
 import 'package:green_birds/presentation/providers/researchs_provider.dart';
@@ -30,8 +32,17 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('es', 'CO'), // Español de Colombia
+        ],
+        locale: const Locale('es', 'CO'),
         debugShowCheckedModeBanner: false,
-        title: 'Material App',
+        title: 'Green Birds',
         home: const MainScreen(),
       ),
     );
