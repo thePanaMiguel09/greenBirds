@@ -18,7 +18,6 @@ class _DetailSamplingPointView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const color = Color(0xFF26AD71);
-
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,7 +55,7 @@ class _DetailSamplingPointView extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 30),
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             children: [
@@ -82,7 +81,63 @@ class _DetailSamplingPointView extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 20),
+          _ScheduleCard(color: color),
         ],
+      ),
+    );
+  }
+}
+
+class _ScheduleCard extends StatelessWidget {
+  const _ScheduleCard({required this.color});
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 390,
+      height: 100,
+      child: Card(
+        color: Colors.white,
+        elevation: 3,
+        child: Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.calendar_month, color: color),
+                  SizedBox(width: 5),
+                  Text(
+                    'Cronograma',
+                    style: TextStyle(
+                      color: color,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Inicio: 31 de Julio de 2025',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Fin: 31 de Agosto de 2025',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
