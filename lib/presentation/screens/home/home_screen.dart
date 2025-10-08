@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:green_birds/domain/entities/research.dart';
 import 'package:green_birds/presentation/providers/researchs_provider.dart';
 import 'package:green_birds/presentation/widgets/researchs_scroll.dart';
 import 'package:provider/provider.dart';
