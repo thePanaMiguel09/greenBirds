@@ -20,84 +20,112 @@ class _DetailSamplingPointView extends StatelessWidget {
   Widget build(BuildContext context) {
     const color = Color(0xFF26AD71);
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: color,
-                ),
-                width: 80,
-                height: 80,
-                child: const Text(
-                  '3',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 50,
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: color,
+                    ),
+                    width: 80,
+                    height: 80,
+                    child: const Text(
+                      '3',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 50,
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Punto de observación',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: color,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 10),
-              const Text(
-                'Punto de observación',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: color,
+              const SizedBox(height: 30),
+              Wrap(
+                alignment: WrapAlignment.spaceEvenly,
+                children: [
+                  _CharacteristicSampligPointCard(
+                    icon: Icons.search_outlined,
+                    title: 'Detalle',
+                    label: 'Extensivo',
+                  ),
+                  _CharacteristicSampligPointCard(
+                    icon: Icons.remove_red_eye_outlined,
+                    title: 'Detección',
+                    label: 'Visual',
+                  ),
+                  _CharacteristicSampligPointCard(
+                    icon: Icons.circle_outlined,
+                    title: 'Radio',
+                    label: '50 metros',
+                  ),
+                  _CharacteristicSampligPointCard(
+                    icon: Icons.watch_later_outlined,
+                    title: 'Periodo',
+                    label: '30 Días',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              _ScheduleCard(color: color),
+              const SizedBox(height: 20),
+              _MapCard(),
+              const SizedBox(height: 20),
+
+              // 👉 Como el ListView ya hace scroll, lo envolvemos con un SizedBox
+              SizedBox(
+                height: 200, // ajusta el alto que necesites
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return _SampleCard();
+                  },
                 ),
               ),
             ],
           ),
-          SizedBox(height: 30),
-          Wrap(
-            alignment: WrapAlignment.spaceEvenly,
-            children: [
-              _CharacteristicSampligPointCard(
-                icon: Icons.search_outlined,
-                title: 'Detalle',
-                label: 'Extensivo',
-              ),
-              _CharacteristicSampligPointCard(
-                icon: Icons.remove_red_eye_outlined,
-                title: 'Detección',
-                label: 'Visual',
-              ),
-              _CharacteristicSampligPointCard(
-                icon: Icons.circle_outlined,
-                title: 'Radio',
-                label: '50 metros',
-              ),
-              _CharacteristicSampligPointCard(
-                icon: Icons.watch_later_outlined,
-                title: 'Periodo',
-                label: '30 Días',
-              ),
-            ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MapCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 390,
+      height: 200,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+          elevation: 3,
+          child: Image.network(
+            'https://i.pinimg.com/736x/bd/22/1f/bd221fa72326054126cabac9dbc5236c.jpg',
+            fit: BoxFit.cover,
           ),
-          SizedBox(height: 20),
-          _ScheduleCard(color: color),
-          SizedBox(height: 20),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return _SampleCard();
-                },
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -207,12 +235,12 @@ class _SampleCard extends StatelessWidget {
                 ),
               ],
             ),
-            TextButton.icon(
-              style: TextButton.styleFrom(backgroundColor: color),
-              onPressed: () {},
-              label: Text('Ver Más', style: TextStyle(color: Colors.white)),
-              icon: Icon(Icons.remove_red_eye_outlined, color: Colors.white),
-            ),
+            // TextButton.icon(
+            //   style: TextButton.styleFrom(backgroundColor: color),
+            //   onPressed: () {},
+            //   label: Text('Ver Más', style: TextStyle(color: Colors.white)),
+            //   icon: Icon(Icons.remove_red_eye_outlined, color: Colors.white),
+            // ),
           ],
         ),
       ),
@@ -290,7 +318,7 @@ class _CharacteristicSampligPointCard extends StatelessWidget {
 
     return SizedBox(
       height: 80,
-      width: 190,
+      width: 150,
       child: Card(
         elevation: 4,
         color: Colors.white,
