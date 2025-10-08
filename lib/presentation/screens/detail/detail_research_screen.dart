@@ -101,6 +101,19 @@ class _ResearchDetailView extends StatelessWidget {
             ),
           ),
         ),
+
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: Row(
+            children: [
+              Icon(Icons.search_outlined, color: color),
+              Text(
+                'Puntos de Muestreo',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
