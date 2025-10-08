@@ -13,7 +13,7 @@ class SamplingResearchPointScreen extends StatelessWidget {
 }
 
 class _DetailSamplingPointView extends StatelessWidget {
-  const _DetailSamplingPointView({super.key});
+  const _DetailSamplingPointView();
 
   @override
   Widget build(BuildContext context) {
@@ -56,28 +56,29 @@ class _DetailSamplingPointView extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 10),
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             children: [
               _CharacteristicSampligPointCard(
-                icon: Icons.remove_red_eye_rounded,
+                icon: Icons.search_outlined,
                 title: 'Detalle',
                 label: 'Extensivo',
               ),
               _CharacteristicSampligPointCard(
-                icon: Icons.remove_red_eye_rounded,
-                title: 'Detalle',
-                label: 'Extensivo',
+                icon: Icons.remove_red_eye_outlined,
+                title: 'Detección',
+                label: 'Visual',
               ),
               _CharacteristicSampligPointCard(
-                icon: Icons.remove_red_eye_rounded,
-                title: 'Detalle',
-                label: 'Extensivo',
+                icon: Icons.circle_outlined,
+                title: 'Radio',
+                label: '50 metros',
               ),
               _CharacteristicSampligPointCard(
-                icon: Icons.remove_red_eye_rounded,
-                title: 'Detalle',
-                label: 'Extensivo',
+                icon: Icons.watch_later_outlined,
+                title: 'Periodo',
+                label: '30 Días',
               ),
             ],
           ),
@@ -109,19 +110,22 @@ class _CharacteristicSampligPointCard extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            Row(
-              children: [
-                Icon(Icons.view_array_outlined, color: color),
-                SizedBox(width: 5),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900,
+            Padding(
+              padding: EdgeInsets.only(top: 5, left: 5),
+              child: Row(
+                children: [
+                  Icon(icon, color: color),
+                  SizedBox(width: 5),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Text(
               label,
