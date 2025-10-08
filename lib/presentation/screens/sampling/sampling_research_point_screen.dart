@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:green_birds/presentation/widgets/image_background_gradient.dart';
 
 class SamplingResearchPointScreen extends StatelessWidget {
   const SamplingResearchPointScreen({super.key});
@@ -83,7 +84,126 @@ class _DetailSamplingPointView extends StatelessWidget {
           ),
           SizedBox(height: 20),
           _ScheduleCard(color: color),
+          SizedBox(height: 20),
+          _SampleCard(),
         ],
+      ),
+    );
+  }
+}
+
+class _SampleCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    const color = Color(0xFF26AD71);
+
+    return SizedBox(
+      width: 300,
+      height: 300,
+      child: Card(
+        color: Colors.white,
+        elevation: 3,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Stack(
+                    children: [
+                      Image.network(
+                        'https://media.istockphoto.com/id/1890631996/es/foto/loro-guacamayo-rojo-en-playa-del-carmen-m%C3%A9xico.jpg?s=612x612&w=0&k=20&c=yneAacEjp3cC5Oiw0M86o2UHODQWUHqNBXgz1jM64ZU=',
+                        height: 180,
+                        fit: BoxFit.cover,
+                      ),
+                      ImageBackgroung(),
+                      Positioned(
+                        bottom: 10,
+                        left: 10,
+                        child: Text(
+                          'Muestra 1',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Icon(
+                          Icons.thermostat_outlined,
+                          size: 32,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        Text('20°', style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Icon(
+                          Icons.water_drop_outlined,
+                          size: 32,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        Text('Normal', style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Icon(
+                          Icons.cloud_outlined,
+                          size: 32,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        Text('20°', style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Icon(
+                          Icons.wb_sunny_outlined,
+                          size: 32,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        Text('20°', style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Icon(
+                          Icons.cloud,
+                          size: 32,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        Text('20°', style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            TextButton.icon(
+              style: TextButton.styleFrom(backgroundColor: color),
+              onPressed: () {},
+              label: Text('Ver Más', style: TextStyle(color: Colors.white)),
+              icon: Icon(Icons.remove_red_eye_outlined, color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }
