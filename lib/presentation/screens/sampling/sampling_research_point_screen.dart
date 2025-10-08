@@ -85,7 +85,18 @@ class _DetailSamplingPointView extends StatelessWidget {
           SizedBox(height: 20),
           _ScheduleCard(color: color),
           SizedBox(height: 20),
-          _SampleCard(),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return _SampleCard();
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
