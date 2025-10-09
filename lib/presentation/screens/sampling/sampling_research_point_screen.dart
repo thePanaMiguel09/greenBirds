@@ -19,8 +19,11 @@ class _DetailSamplingPointView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const color = Color(0xFF26AD71);
+    final scrollPhysics = BouncingScrollPhysics();
+
     return SafeArea(
       child: SingleChildScrollView(
+        physics: scrollPhysics,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -91,10 +94,10 @@ class _DetailSamplingPointView extends StatelessWidget {
               _MapCard(),
               const SizedBox(height: 20),
 
-              // 👉 Como el ListView ya hace scroll, lo envolvemos con un SizedBox
               SizedBox(
                 height: 200, // ajusta el alto que necesites
                 child: ListView.builder(
+                  physics: scrollPhysics,
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   itemBuilder: (context, index) {
