@@ -18,6 +18,7 @@ class ResearchHorizontalList extends StatelessWidget {
       height: 250,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        physics: BouncingScrollPhysics(),
         itemCount: researches.length,
         itemBuilder: (context, index) {
           final research = researches[index];
