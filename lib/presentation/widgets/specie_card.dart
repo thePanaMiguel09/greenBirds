@@ -81,6 +81,27 @@ class SpecieCard extends StatelessWidget {
                 ],
               ),
             ),
+            Padding(
+              padding: EdgeInsets.only(right: 10, top: 10),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: SizedBox(
+                  height: 40,
+                  child: TextButton.icon(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(backgroundColor: color),
+                    label: Text(
+                      'Visual',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    icon: Icon(
+                      Icons.remove_red_eye_outlined,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
