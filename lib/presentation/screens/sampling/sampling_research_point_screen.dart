@@ -134,7 +134,7 @@ class _MapCard extends StatelessWidget {
 class _SampleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const color = Color(0xFF26AD71);
+    //const color = Color(0xFF26AD71);
 
     return SizedBox(
       width: 300,
