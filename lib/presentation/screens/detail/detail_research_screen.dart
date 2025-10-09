@@ -25,6 +25,7 @@ class _ResearchDetailView extends StatelessWidget {
 
     final mediaSize = MediaQuery.of(context).size;
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         children: [
           Center(
