@@ -30,15 +30,16 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.8
   curved_navigation_bar: ^1.0.6
+  fl_chart: ^0.68.0
   flutter:
     sdk: flutter
+  flutter_dotenv: ^6.0.0
   flutter_localizations:
     sdk: flutter
-  flutter_dotenv: ^6.0.0
   http: ^1.5.0
   intl: ^0.20.2
   provider: ^6.1.5+1
-  fl_chart: ^0.68.0
+  skeletonizer: ^2.1.0+1
 
 dev_dependencies:
   flutter_lints: ^5.0.0
