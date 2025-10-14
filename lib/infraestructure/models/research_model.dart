@@ -1,5 +1,5 @@
 import 'package:green_birds/domain/entities/research.dart';
-import 'package:green_birds/infraestructure/models/coorniate_model.dart';
+import 'package:green_birds/infraestructure/models/coordinate_model.dart';
 import 'package:green_birds/infraestructure/models/locality_model.dart';
 
 class ResearchModel {
