@@ -16,4 +16,14 @@ class Locality {
     required this.country,
     required this.state,
   });
+
+  factory Locality.fake() => Locality(
+    id: '0',
+    name: '',
+    city: 'Ciudad',
+    state: 'Departamento',
+    country: 'País',
+    neighborhood: 'Barrio',
+    village: 'Villa',
+  );
 }

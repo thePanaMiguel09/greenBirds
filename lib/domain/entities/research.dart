@@ -29,4 +29,13 @@ class Research {
     this.coordinates,
     this.locality,
   });
+
+  factory Research.fake() => Research(
+    name: 'Cargando...',
+    status: 'Ejecución',
+    description: 'Cargando descripción...',
+    startDate: DateTime.now(),
+    endDate: DateTime.now(),
+    locality: Locality.fake(),
+  );
 }
