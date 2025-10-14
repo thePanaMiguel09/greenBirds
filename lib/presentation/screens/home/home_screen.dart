@@ -1,8 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:green_birds/domain/entities/research.dart';
 import 'package:green_birds/presentation/providers/researchs_provider.dart';
 import 'package:green_birds/presentation/widgets/researchs_scroll.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,16 +20,24 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
-      body: researchProvier.initLoading
-          ? Text('Cargando')
-          : Column(
-              children: [
-                ResearchHorizontalList(researches: researchProvier.researchs),
-                SizedBox(height: 20),
-                _StatisticsView(),
-              ],
-            ),
+      body: Skeletonizer(
+        effect: ShimmerEffect(),
+        enabled: researchProvier.initLoading,
+        child: researchProvier.initLoading
+            ? ResearchHorizontalList(researches: _getDummyResearches())
+            : Column(
+                children: [
+                  ResearchHorizontalList(researches: researchProvier.researchs),
+                  SizedBox(height: 20),
+                  _StatisticsView(),
+                ],
+              ),
+      ),
     );
+  }
+
+  List<Research> _getDummyResearches() {
+    return List.generate(5, (i) => Research.fake());
   }
 }
 

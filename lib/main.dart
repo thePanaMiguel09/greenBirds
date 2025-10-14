@@ -37,9 +37,7 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const [
-          Locale('es', 'CO'), // Español de Colombia
-        ],
+        supportedLocales: const [Locale('es', 'CO')],
         locale: const Locale('es', 'CO'),
         debugShowCheckedModeBanner: false,
         title: 'Green Birds',
