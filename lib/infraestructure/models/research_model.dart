@@ -34,16 +34,12 @@ class ResearchModel {
   factory ResearchModel.fromJson(Map<String, dynamic> json) => ResearchModel(
     name: json['name'],
     description: json['description'] ?? '',
-    objectives:
-        (json['objectives'] as List<dynamic>)
-            ?.map((obj) => obj.toString())
-            .toList() ??
-        [],
-    results:
-        (json['results'] as List<dynamic>)
-            .map((res) => res.toString())
-            .toList() ??
-        [],
+    objectives: (json['objectives'] as List<dynamic>)
+        .map((obj) => obj.toString())
+        .toList(),
+    results: (json['results'] as List<dynamic>)
+        .map((res) => res.toString())
+        .toList(),
     startDate: json['startDate'] != null
         ? DateTime.tryParse(json['startDate'])
         : null,
