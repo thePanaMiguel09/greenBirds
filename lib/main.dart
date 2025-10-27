@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:green_birds/config/router/app_router.dart';
 import 'package:green_birds/infraestructure/datasource/research_datasource_imp.dart';
 import 'package:green_birds/infraestructure/repositories/research_repository_impl.dart';
 import 'package:green_birds/presentation/providers/researchs_provider.dart';
-import 'package:green_birds/presentation/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -31,7 +31,8 @@ class MyApp extends StatelessWidget {
                 ..loadResearchs(),
         ),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: appRouter,
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -41,7 +42,6 @@ class MyApp extends StatelessWidget {
         locale: const Locale('es', 'CO'),
         debugShowCheckedModeBanner: false,
         title: 'Green Birds',
-        home: const MainScreen(),
       ),
     );
   }

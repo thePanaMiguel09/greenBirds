@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:green_birds/presentation/widgets/image_background_gradient.dart';
 
 class SamplingResearchPointScreen extends StatelessWidget {
-  const SamplingResearchPointScreen({super.key});
+  final String researchId;
+  final String pointId;
+  const SamplingResearchPointScreen({
+    super.key,
+    required this.researchId,
+    required this.pointId,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Detalle Punto de Muestreo')),
+      appBar: AppBar(title: Text('Detalle Punto de Muestreo $pointId')),
       body: const _DetailSamplingPointView(),
     );
   }

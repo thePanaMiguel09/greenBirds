@@ -2,6 +2,7 @@ import 'package:green_birds/domain/entities/coordinate.dart';
 import 'package:green_birds/domain/entities/locality.dart';
 
 class Research {
+  final String id;
   final String name;
   final String? description;
   final List<String> objectives;
@@ -16,6 +17,7 @@ class Research {
   final Locality? locality;
 
   Research({
+    required this.id,
     required this.name,
     this.description,
     this.objectives = const [],
@@ -31,6 +33,7 @@ class Research {
   });
 
   factory Research.fake() => Research(
+    id: '59d22cfe',
     name: 'Cargando...',
     status: 'Ejecución',
     description: 'Cargando descripción...',

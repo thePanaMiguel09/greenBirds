@@ -22,7 +22,7 @@ class ResearchHorizontalList extends StatelessWidget {
         itemCount: researches.length,
         itemBuilder: (context, index) {
           final research = researches[index];
-          return ResearchCard(research: research);
+          return ResearchCard(research: research, researchId: research.id);
         },
       ),
     );

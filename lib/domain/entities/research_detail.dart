@@ -7,6 +7,7 @@ class ResearchDetail extends Research {
   ResearchDetail({
     required this.samplePoints,
     required super.name,
+    required super.id,
     super.description,
     super.objectives,
     super.results,

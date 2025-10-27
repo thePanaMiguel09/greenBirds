@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DetailSpecieScreen extends StatelessWidget {
-  const DetailSpecieScreen({super.key});
+  final String specieId;
+  const DetailSpecieScreen({super.key, required this.specieId});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text('Detalle de Especie')),
+        appBar: AppBar(title: Text('Detalle de Especie $specieId')),
         body: Center(
           child: SingleChildScrollView(
             child: Column(

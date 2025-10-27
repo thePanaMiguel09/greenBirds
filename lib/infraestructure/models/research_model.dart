@@ -3,6 +3,7 @@ import 'package:green_birds/infraestructure/models/coordinate_model.dart';
 import 'package:green_birds/infraestructure/models/locality_model.dart';
 
 class ResearchModel {
+  final String id;
   final String name;
   final String? description;
   final List<String> objectives;
@@ -17,6 +18,7 @@ class ResearchModel {
   final LocalityModel? locality;
 
   ResearchModel({
+    required this.id,
     required this.name,
     required this.description,
     required this.objectives,
@@ -32,6 +34,7 @@ class ResearchModel {
   });
 
   factory ResearchModel.fromJson(Map<String, dynamic> json) => ResearchModel(
+    id: json['uuid'],
     name: json['name'],
     description: json['description'] ?? '',
     objectives: (json['objectives'] as List<dynamic>)
@@ -59,6 +62,7 @@ class ResearchModel {
   );
 
   Research toResearchEntity() => Research(
+    id: id,
     name: name,
     status: status,
     description: description,

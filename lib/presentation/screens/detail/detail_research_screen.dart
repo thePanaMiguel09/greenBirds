@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:green_birds/presentation/widgets/sampling_point_card.dart';
 
 class DetailResearchScreen extends StatelessWidget {
-  const DetailResearchScreen({super.key});
+  final String id;
+  const DetailResearchScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +14,16 @@ class DetailResearchScreen extends StatelessWidget {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
-      body: _ResearchDetailView(),
+      body: _ResearchDetailView(id: id),
     );
   }
 }
 
 class _ResearchDetailView extends StatelessWidget {
+  final String id;
+
+  const _ResearchDetailView({required this.id});
+
   @override
   Widget build(BuildContext context) {
     const color = Color(0xFF26AD71);
@@ -74,6 +79,19 @@ class _ResearchDetailView extends StatelessWidget {
                           style: TextStyle(fontSize: 14),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'ID: $id', // Mostramos el ID
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     ),

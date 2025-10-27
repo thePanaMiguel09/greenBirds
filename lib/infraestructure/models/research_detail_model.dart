@@ -10,6 +10,7 @@ class ResearchDetailModel extends ResearchModel {
   ResearchDetailModel({
     required this.samplePoints,
     required super.name,
+    required super.id,
     super.description,
     required super.objectives,
     required super.results,
@@ -26,6 +27,7 @@ class ResearchDetailModel extends ResearchModel {
   factory ResearchDetailModel.fromJson(
     Map<String, dynamic> json,
   ) => ResearchDetailModel(
+    id: json['_id'],
     name: json['name'] ?? '',
     description: json['description'],
     objectives:
@@ -56,6 +58,7 @@ class ResearchDetailModel extends ResearchModel {
   );
 
   ResearchDetail toResearchDetailEntity() => ResearchDetail(
+    id: id,
     name: name,
     description: description,
     objectives: objectives,
