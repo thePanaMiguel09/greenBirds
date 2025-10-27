@@ -21,9 +21,7 @@ class ResearchDetailDatasourceImp implements ResearchDetailDatasource {
 
     if (response.statusCode == 200) {
       final decoded = json.decode(response.body);
-
       final data = decoded['data'];
-
       final model = ResearchDetailModel.fromJson(data);
       return model.toResearchDetailEntity();
     } else {

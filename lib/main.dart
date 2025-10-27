@@ -4,7 +4,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:green_birds/config/router/app_router.dart';
 import 'package:green_birds/infraestructure/datasource/research_datasource_imp.dart';
+import 'package:green_birds/infraestructure/datasource/research_detail_datasource_imp.dart';
+import 'package:green_birds/infraestructure/repositories/research_detail_repository_imp.dart';
 import 'package:green_birds/infraestructure/repositories/research_repository_impl.dart';
+import 'package:green_birds/presentation/providers/research_detail_provider.dart';
 import 'package:green_birds/presentation/providers/researchs_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -23,12 +26,21 @@ class MyApp extends StatelessWidget {
       researchs: ResearchDatasourceImp(),
     );
 
+    final researchDetailRepository = ResearchDetailRepositoryImp(
+      researchDetail: ResearchDetailDatasourceImp(),
+    );
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) =>
               ResearchsProvider(researchRepository: researchRepository)
                 ..loadResearchs(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ResearchDetailProvider(
+            researchDetailRepository: researchDetailRepository,
+          ),
         ),
       ],
       child: MaterialApp.router(
