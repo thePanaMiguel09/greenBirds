@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:green_birds/config/helpers/format_date.dart';
+import 'package:green_birds/presentation/providers/research_detail_provider.dart';
 import 'package:green_birds/presentation/widgets/image_background_gradient.dart';
+import 'package:provider/provider.dart';
 
 class SamplingResearchPointScreen extends StatelessWidget {
   final String researchId;
@@ -14,17 +18,45 @@ class SamplingResearchPointScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Detalle Punto de Muestreo $pointId')),
-      body: const _DetailSamplingPointView(),
+      body: _DetailSamplingPointView(pointId: pointId),
     );
   }
 }
 
 class _DetailSamplingPointView extends StatelessWidget {
-  const _DetailSamplingPointView();
+  final String pointId;
+  const _DetailSamplingPointView({required this.pointId});
 
   @override
   Widget build(BuildContext context) {
     const color = Color(0xFF26AD71);
+
+    final provider = context.watch<ResearchDetailProvider>();
+
+    final samplePoint = provider.getSamplePointById(pointId);
+
+    if (provider.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (samplePoint == null) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.search_off, size: 64, color: Colors.grey),
+            const SizedBox(height: 16),
+            const Text('No se encontró el punto de muestreo'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => context.pop(),
+              child: const Text('Volver'),
+            ),
+          ],
+        ),
+      );
+    }
+
     final scrollPhysics = BouncingScrollPhysics();
 
     return SafeArea(
@@ -48,8 +80,8 @@ class _DetailSamplingPointView extends StatelessWidget {
                     ),
                     width: 80,
                     height: 80,
-                    child: const Text(
-                      '3',
+                    child: Text(
+                      '${samplePoint.pointNumber}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -58,8 +90,8 @@ class _DetailSamplingPointView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  const Text(
-                    'Punto de observación',
+                  Text(
+                    samplePoint.samplingType,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -72,30 +104,35 @@ class _DetailSamplingPointView extends StatelessWidget {
               Wrap(
                 alignment: WrapAlignment.spaceEvenly,
                 children: [
-                  _CharacteristicSampligPointCard(
-                    icon: Icons.search_outlined,
-                    title: 'Detalle',
-                    label: 'Extensivo',
-                  ),
+                  if (samplePoint.detailSamplingType != null)
+                    _CharacteristicSampligPointCard(
+                      icon: Icons.search_outlined,
+                      title: 'Detalle',
+                      label: samplePoint.detailSamplingType!,
+                    ),
                   _CharacteristicSampligPointCard(
                     icon: Icons.remove_red_eye_outlined,
                     title: 'Detección',
-                    label: 'Visual',
+                    label: samplePoint.detection,
                   ),
                   _CharacteristicSampligPointCard(
                     icon: Icons.circle_outlined,
                     title: 'Radio',
-                    label: '50 metros',
+                    label: '${samplePoint.fixedRadius} metros',
                   ),
                   _CharacteristicSampligPointCard(
                     icon: Icons.watch_later_outlined,
                     title: 'Periodo',
-                    label: '30 Días',
+                    label: '${samplePoint.censusPeriod} Días',
                   ),
                 ],
               ),
               const SizedBox(height: 20),
-              _ScheduleCard(color: color),
+              _ScheduleCard(
+                color: color,
+                startDate: samplePoint.startDate,
+                endDate: samplePoint.endDate,
+              ),
               const SizedBox(height: 20),
               _MapCard(),
               const SizedBox(height: 20),
@@ -258,7 +295,14 @@ class _SampleCard extends StatelessWidget {
 }
 
 class _ScheduleCard extends StatelessWidget {
-  const _ScheduleCard({required this.color});
+  final DateTime startDate;
+  final DateTime endDate;
+
+  const _ScheduleCard({
+    required this.color,
+    required this.startDate,
+    required this.endDate,
+  });
 
   final Color color;
 
@@ -292,14 +336,14 @@ class _ScheduleCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Inicio: 31 de Julio de 2025',
+                  'Inicio: ${FormatDate.getFormatedDate(startDate)}',
                   style: TextStyle(fontSize: 18),
                 ),
               ),
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Fin: 31 de Agosto de 2025',
+                  'Fin: ${FormatDate.getFormatedDate(endDate)}',
                   style: TextStyle(fontSize: 18),
                 ),
               ),

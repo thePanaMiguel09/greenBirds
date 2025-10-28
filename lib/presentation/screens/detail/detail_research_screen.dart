@@ -134,12 +134,11 @@ class _ResearchDetailView extends StatelessWidget {
                         style: const TextStyle(fontSize: 14),
                       ),
 
-                    const SizedBox(height: 8),
-                    Text(
-                      'ID: ${detail.id}',
-                      style: const TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-
+                    // const SizedBox(height: 8),
+                    // Text(
+                    //   'ID: ${detail.id}',
+                    //   style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    // ),
                     const SizedBox(height: 16),
 
                     // Objetivos
@@ -148,10 +147,7 @@ class _ResearchDetailView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.flag_outlined, color: color),
-                          Text(
-                            detail.objectives.join(', '),
-                            style: const TextStyle(),
-                          ),
+                          Text(detail.objectives.join(', ')),
 
                           const SizedBox(height: 12),
                         ],
@@ -160,25 +156,15 @@ class _ResearchDetailView extends StatelessWidget {
                     // Resultados
                     if (detail.results.isNotEmpty) ...[
                       Row(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.check_circle_outline,
                             color: color,
                             size: 20,
                           ),
                           SizedBox(width: 8),
-                          Text(
-                            'Resultados',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          Text(detail.results.join(', ')),
                         ],
-                      ),
-                      const SizedBox(height: 8),
-                      ...detail.results.map(
-                        (res) => Padding(
-                          padding: const EdgeInsets.only(left: 28, bottom: 4),
-                          child: Text('• $res'),
-                        ),
                       ),
                     ],
                   ],
@@ -207,25 +193,25 @@ class _ResearchDetailView extends StatelessWidget {
           const SizedBox(height: 12),
 
           //Lista de puntos de muestreo
-          // if (detail.samplePoints.isEmpty)
-          //   const Padding(
-          //     padding: EdgeInsets.all(20),
-          //     child: Text('No hay puntos de muestreo registrados'),
-          //   )
-          // else
-          //   ...detail.samplePoints.map(
-          //     (point) => Padding(
-          //       padding: const EdgeInsets.symmetric(
-          //         horizontal: 16,
-          //         vertical: 8,
-          //       ),
-          //       child: SamplingPointCard(
-          //         samplePoint: point,
-          //         researchId: detail.id,
-          //       ),
-          //     ),
-          //   ),
-          // const SizedBox(height: 20),
+          if (detail.samplePoints.isEmpty)
+            const Padding(
+              padding: EdgeInsets.all(20),
+              child: Text('No hay puntos de muestreo registrados'),
+            )
+          else
+            ...detail.samplePoints.map(
+              (point) => Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: SamplingPointCard(
+                  samplePoint: point,
+                  researchId: detail.id,
+                ),
+              ),
+            ),
+          const SizedBox(height: 20),
         ],
       ),
     );
