@@ -24,38 +24,41 @@ class ResearchDetailModel extends ResearchModel {
     super.locality,
   });
 
-  factory ResearchDetailModel.fromJson(
-    Map<String, dynamic> json,
-  ) => ResearchDetailModel(
-    id: json['uuid']?.toString() ?? '',
-    name: json['name'] ?? '',
-    description: json['description'],
-    objectives:
-        (json['objectives'] as List?)?.map((e) => e.toString()).toList() ?? [],
-    results:
-        (json['results'] as List?)?.map((e) => e.toString()).toList() ?? [],
-    startDate: json['startDate'] != null
-        ? DateTime.tryParse(json['startDate'])
-        : null,
-    endDate: json['endDate'] != null
-        ? DateTime.tryParse(json['endDate'])
-        : null,
-    status: json['status'] ?? '',
-    habitatType: json['habitatType'],
-    domainVegetation: json['domainVegetation'] ?? json['dominantVegetation'],
-    height: (json['height'] is num) ? (json['height'] as num).toInt() : null,
-    coordinates: json['coordinates'] != null
-        ? CoordinateModel.fromJson(json['coordinates'])
-        : null,
-    locality: json['locality'] != null
-        ? LocalityModel.fromJson(json['locality'])
-        : null,
-    samplePoints:
-        (json['samplingPoints'] as List?)
-            ?.map((sp) => SamplePointModel.fromJson(sp))
-            .toList() ??
-        [],
-  );
+  factory ResearchDetailModel.fromJson(Map<String, dynamic> json) {
+    return ResearchDetailModel(
+      id: json['uuid']?.toString() ?? '',
+      name: json['name']?.toString() ?? '',
+      description: json['description']?.toString(),
+      objectives:
+          (json['objectives'] as List?)?.map((e) => e.toString()).toList() ??
+          [],
+      results:
+          (json['results'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      startDate: json['startDate'] != null
+          ? DateTime.tryParse(json['startDate'])
+          : null,
+      endDate: json['endDate'] != null
+          ? DateTime.tryParse(json['endDate'])
+          : null,
+      status: json['status']?.toString() ?? '',
+      habitatType: json['habitatType']?.toString(),
+      domainVegetation:
+          json['domainVegetation']?.toString() ??
+          json['dominantVegetation']?.toString(),
+      height: (json['height'] is num) ? (json['height'] as num).toInt() : null,
+      coordinates: json['coordinates'] != null
+          ? CoordinateModel.fromJson(json['coordinates'])
+          : null,
+      locality: json['locality'] != null
+          ? LocalityModel.fromJson(json['locality'])
+          : null,
+      samplePoints:
+          (json['samplingPoints'] as List?)
+              ?.map((sp) => SamplePointModel.fromJson(sp))
+              .toList() ??
+          [],
+    );
+  }
 
   ResearchDetail toResearchDetailEntity() => ResearchDetail(
     id: id,

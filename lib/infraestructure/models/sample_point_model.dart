@@ -2,6 +2,32 @@ import 'package:green_birds/domain/entities/sample_point.dart';
 import 'package:green_birds/infraestructure/models/coordinate_model.dart';
 import 'package:green_birds/infraestructure/models/sample_model.dart';
 
+int _toInt(dynamic v) {
+  if (v == null) return 0;
+  if (v is int) return v;
+  if (v is num) return v.toInt();
+  if (v is String) return int.tryParse(v) ?? (double.tryParse(v)?.toInt() ?? 0);
+  return 0;
+}
+
+double _toDouble(dynamic v) {
+  if (v == null) return 0.0;
+  if (v is num) return v.toDouble();
+  if (v is String) return double.tryParse(v) ?? 0.0;
+  return 0.0;
+}
+
+DateTime _toDateTime(dynamic v) {
+  if (v == null) return DateTime.fromMillisecondsSinceEpoch(0);
+  if (v is DateTime) return v;
+  if (v is int) return DateTime.fromMillisecondsSinceEpoch(v);
+  if (v is String) {
+    final parsed = DateTime.tryParse(v);
+    return parsed ?? DateTime.fromMillisecondsSinceEpoch(0);
+  }
+  return DateTime.fromMillisecondsSinceEpoch(0);
+}
+
 class SamplePointModel {
   final String samplePointId;
   final int pointNumber;
@@ -10,8 +36,8 @@ class SamplePointModel {
   final String? detailSamplingType;
   final String detection;
   final String figure;
-  final String censusPeriod;
-  final String fixedRadius;
+  final int censusPeriod;
+  final int fixedRadius;
   final DateTime startDate;
   final DateTime endDate;
   final List<SampleModel> samples;
@@ -31,23 +57,27 @@ class SamplePointModel {
     required this.samples,
   });
 
-  factory SamplePointModel.fromJson(Map<String, dynamic> json) =>
-      SamplePointModel(
-        samplePointId: json['_id']?.toString() ?? '',
-        pointNumber: (json['pointNumber'] as num).toInt(),
-        coordinates: CoordinateModel.fromJson(json['coordinates']),
-        samplingType: json['samplingType'],
-        detailSamplingType: json['detailSamplingType'],
-        detection: json['detection'],
-        figure: json['figure'],
-        censusPeriod: json['censusPeriod'],
-        fixedRadius: json['fixedRadius'],
-        startDate: DateTime.tryParse(json['startDate'] ?? '')!,
-        endDate: DateTime.tryParse(json['endDate'] ?? '')!,
-        samples: (json['samples'] as List<dynamic>)
-            .map((smp) => SampleModel.fromJson(smp as Map<String, dynamic>))
-            .toList(),
-      );
+  factory SamplePointModel.fromJson(Map<String, dynamic> json) {
+    final coords = CoordinateModel.fromJson(json['coordinates']);
+    return SamplePointModel(
+      samplePointId: json['_id']?.toString() ?? '',
+      pointNumber: _toInt(json['pointNumber']),
+      coordinates: coords,
+      samplingType: json['samplingType']?.toString() ?? '',
+      detailSamplingType: json['detailSamplingType']?.toString(),
+      detection: json['detection']?.toString() ?? '',
+      figure: json['figure']?.toString() ?? '',
+      censusPeriod: _toInt(json['censusPeriod']),
+      fixedRadius: _toInt(json['fixedRadius']),
+      startDate: _toDateTime(json['startDate']),
+      endDate: _toDateTime(json['endDate']),
+      samples:
+          (json['samples'] as List?)
+              ?.map((smp) => SampleModel.fromJson(smp as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+  }
 
   SamplePoint toSamplePointEntity() => SamplePoint(
     samplePointId: samplePointId,

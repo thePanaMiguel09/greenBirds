@@ -1,7 +1,23 @@
 import 'package:green_birds/domain/entities/observed_specie.dart';
 import 'package:green_birds/infraestructure/models/morphology_model.dart';
 
+int _toInt(dynamic v) {
+  if (v == null) return 0;
+  if (v is int) return v;
+  if (v is num) return v.toInt();
+  if (v is String) return int.tryParse(v) ?? (double.tryParse(v)?.toInt() ?? 0);
+  return 0;
+}
+
+double _toDouble(dynamic v) {
+  if (v == null) return 0.0;
+  if (v is num) return v.toDouble();
+  if (v is String) return double.tryParse(v) ?? 0.0;
+  return 0.0;
+}
+
 class ObservedSpecieModel {
+  final String id;
   final String specie;
   final int abundance;
   final String detection;
@@ -19,6 +35,7 @@ class ObservedSpecieModel {
   final List<String> images;
 
   ObservedSpecieModel({
+    required this.id,
     required this.specie,
     required this.abundance,
     required this.detection,
@@ -36,28 +53,37 @@ class ObservedSpecieModel {
     required this.images,
   });
 
-  factory ObservedSpecieModel.fromJson(Map<String, dynamic> json) =>
-      ObservedSpecieModel(
-        specie: json['species'],
-        abundance: (json['abundance'] as num).toInt(),
-        detection: json['detection'],
-        distance: (json['distance'] as num).toDouble(),
-        males: (json['males'] as num).toInt(),
-        females: (json['females'] as num).toInt(),
-        undeterminatedSex: (json['undeterminatedSex'] as num).toInt(),
-        numberAdults: (json['numberAdults'] as num).toInt(),
-        juvenileCount: (json['juvenileCount'] as num).toInt(),
-        activity: json['activity'],
-        substrate: json['substrate'],
-        stratum: json['stratum'],
-        observation: json['observation'],
-        morphology: MorphologyModel.fromJson(json['morphology'], images: []),
-        images: (json['images'] as List<dynamic>)
-            .map((img) => img.toString())
-            .toList(),
-      );
+  factory ObservedSpecieModel.fromJson(Map<String, dynamic> json) {
+    final List<String> images =
+        (json['images'] as List?)?.map((e) => e.toString()).toList() ?? [];
+
+    return ObservedSpecieModel(
+      id: json['_id']?.toString() ?? '',
+      specie: json['species']?.toString() ?? '',
+      abundance: _toInt(json['abundance']),
+      detection: json['detection']?.toString() ?? '',
+      distance: _toDouble(json['distance']),
+      males: _toInt(json['males']),
+      females: _toInt(json['females']),
+      undeterminatedSex: _toInt(json['undeterminatedSex']),
+      numberAdults: _toInt(json['numberAdults']),
+      juvenileCount: _toInt(json['juvenileCount']),
+      activity: json['activity']?.toString() ?? '',
+      substrate: json['substrate']?.toString() ?? '',
+      stratum: json['stratum']?.toString() ?? '',
+      observation: json['observation']?.toString() ?? '',
+      morphology: MorphologyModel.fromJson(
+        (json['morphology'] is Map)
+            ? Map<String, dynamic>.from(json['morphology'])
+            : null,
+        images: images,
+      ),
+      images: images,
+    );
+  }
 
   ObservedSpecie toObservedSpecieEntity() => ObservedSpecie(
+    id: id,
     specie: specie,
     abundance: abundance,
     detection: detection,

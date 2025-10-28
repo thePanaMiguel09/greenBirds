@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:green_birds/domain/entities/sample_point.dart';
 import 'package:green_birds/presentation/widgets/custom_chip.dart';
 
 class SamplingPointCard extends StatelessWidget {
-  const SamplingPointCard({super.key});
+  final SamplePoint samplePoint;
+  final String researchId;
+  const SamplingPointCard({
+    super.key,
+    required this.samplePoint,
+    required this.researchId,
+  });
 
   @override
   Widget build(BuildContext context) {

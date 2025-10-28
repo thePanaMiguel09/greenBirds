@@ -1,6 +1,8 @@
 import 'package:green_birds/domain/entities/morphology_specie.dart';
 
 class ObservedSpecie {
+  final String id;
+
   final String specie;
   final int abundance;
   final String detection;
@@ -18,6 +20,7 @@ class ObservedSpecie {
   final List<String> images;
 
   ObservedSpecie({
+    required this.id,
     required this.specie,
     required this.abundance,
     required this.detection,

@@ -52,7 +52,7 @@ class _ResearchDetailView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
+            CircularProgressIndicator(color: color, strokeWidth: 5),
             SizedBox(height: 16),
             Text('Cargando investigación...'),
           ],
@@ -60,27 +60,28 @@ class _ResearchDetailView extends StatelessWidget {
       );
     }
 
-    // ✅ Si no hay datos (después de cargar sin errores)
     final detail = provider.currentResearchDetail;
     if (detail == null) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.search_off, size: 64, color: Colors.grey),
+            const Icon(Icons.search_off, size: 128, color: color),
             const SizedBox(height: 16),
-            const Text('No se encontró la investigación'),
+            const Text(
+              'No se encontró la investigación',
+              style: TextStyle(fontSize: 15),
+            ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => context.pop(),
-              child: const Text('Volver'),
+              child: const Text('Volver', style: TextStyle(color: color)),
             ),
           ],
         ),
       );
     }
 
-    // ✅ Mostrar datos
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -134,8 +135,6 @@ class _ResearchDetailView extends StatelessWidget {
                       ),
 
                     const SizedBox(height: 8),
-
-                    // ID (para debug)
                     Text(
                       'ID: ${detail.id}',
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
@@ -146,25 +145,18 @@ class _ResearchDetailView extends StatelessWidget {
                     // Objetivos
                     if (detail.objectives.isNotEmpty) ...[
                       Row(
-                        children: const [
-                          Icon(Icons.flag_outlined, color: color, size: 20),
-                          SizedBox(width: 8),
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.flag_outlined, color: color),
                           Text(
-                            'Objetivos',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            detail.objectives.join(', '),
+                            style: const TextStyle(),
                           ),
+
+                          const SizedBox(height: 12),
                         ],
                       ),
-                      const SizedBox(height: 8),
-                      ...detail.objectives.map(
-                        (obj) => Padding(
-                          padding: const EdgeInsets.only(left: 28, bottom: 4),
-                          child: Text('• $obj'),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
                     ],
-
                     // Resultados
                     if (detail.results.isNotEmpty) ...[
                       Row(
@@ -214,7 +206,7 @@ class _ResearchDetailView extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          // Lista de puntos de muestreo
+          //Lista de puntos de muestreo
           // if (detail.samplePoints.isEmpty)
           //   const Padding(
           //     padding: EdgeInsets.all(20),
@@ -233,7 +225,7 @@ class _ResearchDetailView extends StatelessWidget {
           //       ),
           //     ),
           //   ),
-          const SizedBox(height: 20),
+          // const SizedBox(height: 20),
         ],
       ),
     );

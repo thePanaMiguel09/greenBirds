@@ -33,33 +33,44 @@ class ResearchModel {
     required this.locality,
   });
 
-  factory ResearchModel.fromJson(Map<String, dynamic> json) => ResearchModel(
-    id: json['uuid'],
-    name: json['name'],
-    description: json['description'] ?? '',
-    objectives: (json['objectives'] as List<dynamic>)
-        .map((obj) => obj.toString())
-        .toList(),
-    results: (json['results'] as List<dynamic>)
-        .map((res) => res.toString())
-        .toList(),
-    startDate: json['startDate'] != null
-        ? DateTime.tryParse(json['startDate'])
-        : null,
-    endDate: json['endDate'] != null
-        ? DateTime.tryParse(json['endDate'])
-        : null,
-    status: json['status'] ?? '',
-    habitatType: json['habitatType'],
-    domainVegetation: json['dominantVegetation'] ?? json['domainVegetation'],
-    height: json['height'],
-    coordinates: json['coordinates'] != null
-        ? CoordinateModel.fromJson(json['coordinates'])
-        : null,
-    locality: json['locality'] != null
-        ? LocalityModel.fromJson(json['locality'])
-        : null,
-  );
+  factory ResearchModel.fromJson(Map<String, dynamic> json) {
+    DateTime? _tryParseDate(dynamic v) {
+      if (v == null) return null;
+      if (v is DateTime) return v;
+      if (v is String) return DateTime.tryParse(v);
+      return null;
+    }
+
+    return ResearchModel(
+      id: json['uuid']?.toString() ?? json['_id']?.toString() ?? '',
+      name: json['name']?.toString() ?? '',
+      description: json['description']?.toString() ?? '',
+      objectives:
+          (json['objectives'] as List?)
+              ?.map((obj) => obj.toString())
+              .toList() ??
+          [],
+      results:
+          (json['results'] as List?)?.map((res) => res.toString()).toList() ??
+          [],
+      startDate: _tryParseDate(json['startDate']),
+      endDate: _tryParseDate(json['endDate']),
+      status: json['status']?.toString() ?? '',
+      habitatType: json['habitatType']?.toString(),
+      domainVegetation:
+          json['domainVegetation']?.toString() ??
+          json['dominantVegetation']?.toString(),
+      height: (json['height'] is num)
+          ? (json['height'] as num).toInt()
+          : (int.tryParse(json['height']?.toString() ?? '') ?? null),
+      coordinates: json['coordinates'] != null
+          ? CoordinateModel.fromJson(json['coordinates'])
+          : null,
+      locality: json['locality'] != null
+          ? LocalityModel.fromJson(json['locality'])
+          : null,
+    );
+  }
 
   Research toResearchEntity() => Research(
     id: id,

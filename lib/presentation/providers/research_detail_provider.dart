@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_birds/domain/entities/research_detail.dart';
+import 'package:green_birds/domain/entities/sample_point.dart';
 import 'package:green_birds/domain/repositories/research_detail_repository.dart';
 
 class ResearchDetailProvider extends ChangeNotifier {
@@ -28,6 +29,18 @@ class ResearchDetailProvider extends ChangeNotifier {
     } finally {
       isLoading = false;
       notifyListeners();
+    }
+  }
+
+  SamplePoint? getSamplePointById(String sampleId) {
+    if (currentResearchDetail == null) return null;
+    try {
+      return currentResearchDetail!.samplePoints.firstWhere(
+        (point) => point.samplePointId == sampleId,
+      );
+    } catch (e) {
+      print('⚠️ No se encontró el punto de muestreo con ID: $sampleId');
+      return null;
     }
   }
 }

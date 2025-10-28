@@ -9,8 +9,8 @@ class SamplePoint {
   final String? detailSamplingType;
   final String detection;
   final String figure;
-  final String censusPeriod;
-  final String fixedRadius;
+  final int censusPeriod;
+  final int fixedRadius;
   final DateTime startDate;
   final DateTime endDate;
   final List<Sample> samples;

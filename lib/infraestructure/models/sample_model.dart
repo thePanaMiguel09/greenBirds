@@ -1,6 +1,13 @@
 import 'package:green_birds/domain/entities/sample.dart';
 import 'package:green_birds/infraestructure/models/observed_specie_model.dart';
 
+double _toDouble(dynamic v) {
+  if (v == null) return 0.0;
+  if (v is num) return v.toDouble();
+  if (v is String) return double.tryParse(v) ?? 0.0;
+  return 0.0;
+}
+
 class SampleModel {
   final String sampleId;
   final double temperature;
@@ -23,19 +30,22 @@ class SampleModel {
   });
 
   factory SampleModel.fromJson(Map<String, dynamic> json) => SampleModel(
-    sampleId: json['_id'].toString(),
-    temperature: (json['temperature'] as num?)?.toDouble() ?? 0,
-    relativeHumidity: (json['relativeHumidity'] as num?)?.toDouble() ?? 0,
-    presipitationState: json['precipitationState'] ?? '',
-    cloudCoverage: (json['cloudCoverage'] as num?)?.toDouble() ?? 0,
-    luminosity: json['luminosity'],
-    overallConditions: json['overallConditions'],
-    observedSpecies: (json['observedSpecies'] as List<dynamic>)
-        .map(
-          (specieJson) =>
-              ObservedSpecieModel.fromJson(specieJson as Map<String, dynamic>),
-        )
-        .toList(),
+    sampleId: json['_id']?.toString() ?? '',
+    temperature: _toDouble(json['temperature']),
+    relativeHumidity: _toDouble(json['relativeHumidity']),
+    presipitationState: json['precipitationState']?.toString() ?? '',
+    cloudCoverage: _toDouble(json['cloudCoverage']),
+    luminosity: json['luminosity']?.toString() ?? '',
+    overallConditions: json['overallConditions']?.toString() ?? '',
+    observedSpecies:
+        (json['observedSpecies'] as List?)
+            ?.map(
+              (specieJson) => ObservedSpecieModel.fromJson(
+                specieJson as Map<String, dynamic>,
+              ),
+            )
+            .toList() ??
+        [],
   );
 
   Sample toSampleEntity() => Sample(
