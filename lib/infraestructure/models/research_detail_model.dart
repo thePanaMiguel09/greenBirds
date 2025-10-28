@@ -27,7 +27,7 @@ class ResearchDetailModel extends ResearchModel {
   factory ResearchDetailModel.fromJson(
     Map<String, dynamic> json,
   ) => ResearchDetailModel(
-    id: json['_id'],
+    id: json['uuid']?.toString() ?? '',
     name: json['name'] ?? '',
     description: json['description'],
     objectives:

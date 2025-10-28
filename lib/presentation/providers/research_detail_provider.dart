@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:green_birds/domain/entities/research_detail.dart';
-import 'package:green_birds/infraestructure/repositories/research_detail_repository_imp.dart';
+import 'package:green_birds/domain/repositories/research_detail_repository.dart';
 
 class ResearchDetailProvider extends ChangeNotifier {
-  final ResearchDetailRepositoryImp researchDetailRepository;
+  final ResearchDetailRepository researchDetailRepository;
 
   bool isLoading = false;
+  String? errorMessage;
   ResearchDetail? currentResearchDetail;
 
   ResearchDetailProvider({required this.researchDetailRepository});
 
   Future<void> loadResearchDetail(String researchId) async {
-    currentResearchDetail = null;
     isLoading = true;
+    errorMessage = null;
+    currentResearchDetail = null;
     notifyListeners();
+
     try {
       final detail = await researchDetailRepository.getResearchDetail(
         researchId,
       );
       currentResearchDetail = detail;
-      isLoading = false;
-      notifyListeners();
     } catch (e) {
+      errorMessage = "Error al cargar el detalle: $e";
+      debugPrint(errorMessage);
+    } finally {
       isLoading = false;
-      currentResearchDetail = null;
       notifyListeners();
     }
   }

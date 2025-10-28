@@ -51,7 +51,7 @@ class ResearchModel {
         : null,
     status: json['status'] ?? '',
     habitatType: json['habitatType'],
-    domainVegetation: json['domainVegetation'],
+    domainVegetation: json['dominantVegetation'] ?? json['domainVegetation'],
     height: json['height'],
     coordinates: json['coordinates'] != null
         ? CoordinateModel.fromJson(json['coordinates'])

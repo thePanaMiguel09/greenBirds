@@ -13,7 +13,7 @@ class CoordinateModel {
 
   factory CoordinateModel.fromJson(Map<String, dynamic> json) =>
       CoordinateModel(
-        id: json['_id'] ?? '',
+        id: json['_id']?.toString() ?? '',
         latitude: (json['latitude'] as num).toDouble(),
         longitude: (json['longitude'] as num).toDouble(),
       );

@@ -33,7 +33,7 @@ class SamplePointModel {
 
   factory SamplePointModel.fromJson(Map<String, dynamic> json) =>
       SamplePointModel(
-        samplePointId: json['_id'],
+        samplePointId: json['_id']?.toString() ?? '',
         pointNumber: (json['pointNumber'] as num).toInt(),
         coordinates: CoordinateModel.fromJson(json['coordinates']),
         samplingType: json['samplingType'],

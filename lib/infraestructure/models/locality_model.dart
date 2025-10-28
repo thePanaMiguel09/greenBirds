@@ -20,7 +20,7 @@ class LocalityModel {
   });
 
   factory LocalityModel.fromJson(Map<String, dynamic> json) => LocalityModel(
-    id: json['_id'],
+    id: json['_id']?.toString() ?? '',
     name: json['name'],
     village: json['village'],
     neighborhood: json['neighborhood'],

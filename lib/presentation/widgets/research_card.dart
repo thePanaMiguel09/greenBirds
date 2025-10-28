@@ -21,6 +21,7 @@ class ResearchCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.push('/research/$researchId');
+        print('Este es el ID al hacer clic en el card' + researchId);
       },
       child: Container(
         width: 300,

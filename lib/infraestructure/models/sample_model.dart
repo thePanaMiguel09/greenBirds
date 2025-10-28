@@ -23,7 +23,7 @@ class SampleModel {
   });
 
   factory SampleModel.fromJson(Map<String, dynamic> json) => SampleModel(
-    sampleId: json['_id'],
+    sampleId: json['_id'].toString(),
     temperature: (json['temperature'] as num?)?.toDouble() ?? 0,
     relativeHumidity: (json['relativeHumidity'] as num?)?.toDouble() ?? 0,
     presipitationState: json['precipitationState'] ?? '',

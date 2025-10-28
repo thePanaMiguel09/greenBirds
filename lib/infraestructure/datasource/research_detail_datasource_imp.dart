@@ -21,7 +21,12 @@ class ResearchDetailDatasourceImp implements ResearchDetailDatasource {
 
     if (response.statusCode == 200) {
       final decoded = json.decode(response.body);
-      final data = decoded['data'];
+      print('✅ Respuesta completa: $decoded');
+
+      // ✅ Acceso correcto según tu JSON del documento 1
+      final data = decoded['data']['research'];
+      print('✅ Research data: $data');
+
       final model = ResearchDetailModel.fromJson(data);
       return model.toResearchDetailEntity();
     } else {

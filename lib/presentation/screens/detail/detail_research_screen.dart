@@ -17,9 +17,9 @@ class _DetailResearchScreenState extends State<DetailResearchScreen> {
   @override
   void initState() {
     super.initState();
-    // Cargar el detalle cuando se monta la pantalla
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ResearchDetailProvider>().loadResearchDetail(widget.id);
+      final id = widget.id;
+      context.read<ResearchDetailProvider>().loadResearchDetail(id);
     });
   }
 
