@@ -1,109 +1,220 @@
 import 'package:flutter/material.dart';
+import 'package:green_birds/domain/entities/observed_specie.dart';
 
 class SpecieCard extends StatelessWidget {
-  const SpecieCard({super.key});
+  final ObservedSpecie specie;
+  final VoidCallback onTap;
+  const SpecieCard({super.key, required this.specie, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     const color = Color(0xFF26AD71);
 
-    return SizedBox(
-      width: 390,
-      height: 150,
-      child: Card(
-        elevation: 3,
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                spacing: 16,
-                mainAxisAlignment: MainAxisAlignment.start,
-
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      'https://media.istockphoto.com/id/1890631996/es/foto/loro-guacamayo-rojo-en-playa-del-carmen-m%C3%A9xico.jpg?s=612x612&w=0&k=20&c=yneAacEjp3cC5Oiw0M86o2UHODQWUHqNBXgz1jM64ZU=',
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        child: Card(
+          elevation: 3,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Imagen de la especie
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: specie.images.isNotEmpty
+                          ? Image.network(
+                              specie.images.first,
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 100,
+                                  width: 100,
+                                  color: Colors.grey[300],
+                                  child: const Icon(
+                                    Icons.image_not_supported,
+                                    size: 40,
+                                    color: Colors.grey,
+                                  ),
+                                );
+                              },
+                            )
+                          : Container(
+                              height: 100,
+                              width: 100,
+                              color: Colors.grey[300],
+                              child: const Icon(
+                                Icons.camera_alt,
+                                size: 40,
+                                color: Colors.grey,
+                              ),
+                            ),
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Especie'),
-                      Text(
-                        'Cardianlis Cardinalis',
-                        style: TextStyle(
-                          color: color,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Row(
-                        spacing: 20,
+                    const SizedBox(width: 16),
+
+                    // Información de la especie
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          const Text(
+                            'Especie',
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                          Text(
+                            specie.specie,
+                            style: const TextStyle(
+                              color: color,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 12),
+
+                          // Datos numéricos
+                          Row(
                             children: [
-                              Text('Cantidad'),
-                              Text(
-                                '5',
-                                style: TextStyle(
-                                  color: color,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                              Expanded(
+                                child: _DataChip(
+                                  label: 'Abundancia',
+                                  value: '${specie.abundance}',
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: _DataChip(
+                                  label: 'Distancia',
+                                  value:
+                                      '${specie.distance.toStringAsFixed(1)}m',
                                 ),
                               ),
                             ],
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          const SizedBox(height: 8),
+
+                          // Sexo
+                          Row(
                             children: [
-                              Text('Distancia'),
-                              Text(
-                                '10.5m',
-                                style: TextStyle(
-                                  color: color,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                              Expanded(
+                                child: _DataChip(
+                                  label: 'Machos',
+                                  value: '${specie.males}',
+                                  icon: Icons.male,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: _DataChip(
+                                  label: 'Hembras',
+                                  value: '${specie.females}',
+                                  icon: Icons.female,
                                 ),
                               ),
                             ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 10, top: 10),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: SizedBox(
-                  height: 40,
-                  child: TextButton.icon(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(backgroundColor: color),
-                    label: Text(
-                      'Visual',
-                      style: TextStyle(color: Colors.white),
                     ),
-                    icon: Icon(
-                      Icons.remove_red_eye_outlined,
-                      color: Colors.white,
-                    ),
-                  ),
+                  ],
                 ),
-              ),
+
+                // Botón de detección
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Chip(
+                      backgroundColor: color,
+                      label: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            _getDetectionIcon(specie.detection),
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            specie.detection,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         ),
+      ),
+    );
+  }
+
+  IconData _getDetectionIcon(String detection) {
+    if (detection.toLowerCase().contains('visual')) {
+      return Icons.remove_red_eye_outlined;
+    } else if (detection.toLowerCase().contains('red') ||
+        detection.toLowerCase().contains('captura')) {
+      return Icons.catching_pokemon;
+    } else if (detection.toLowerCase().contains('audio') ||
+        detection.toLowerCase().contains('canto')) {
+      return Icons.hearing;
+    }
+    return Icons.sensors;
+  }
+}
+
+class _DataChip extends StatelessWidget {
+  final String label;
+  final String value;
+  final IconData? icon;
+
+  const _DataChip({required this.label, required this.value, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              if (icon != null) ...[
+                Icon(icon, size: 12, color: Colors.grey[600]),
+                const SizedBox(width: 4),
+              ],
+              Text(
+                label,
+                style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+              ),
+            ],
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF26AD71),
+            ),
+          ),
+        ],
       ),
     );
   }

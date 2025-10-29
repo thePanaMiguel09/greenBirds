@@ -18,7 +18,7 @@ class SamplingResearchPointScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Detalle Punto de Muestreo $pointId')),
+      appBar: AppBar(title: Text('Detalle Punto de Muestreo')),
       body: _DetailSamplingPointView(pointId: pointId),
     );
   }
