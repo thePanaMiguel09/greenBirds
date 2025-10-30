@@ -28,7 +28,6 @@ class _DetailSpecieView extends StatelessWidget {
     final provider = context.watch<ResearchDetailProvider>();
     const color = Color(0xFF26AD71);
 
-    // ✅ Buscar la especie en todas las muestras
     final specie = _findSpecieInAllSamples(provider, specieId);
 
     if (provider.isLoading) {
