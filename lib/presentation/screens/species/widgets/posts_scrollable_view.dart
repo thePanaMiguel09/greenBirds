@@ -9,7 +9,6 @@ class PostsScrollableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Validación para lista vacía
     if (speciesPosts.isEmpty) {
       return Center(
         child: Column(
@@ -36,12 +35,12 @@ class PostsScrollableView extends StatelessWidget {
     }
 
     return PageView.builder(
-      scrollDirection: Axis.vertical,
+      scrollDirection: Axis.horizontal,
       itemCount: speciesPosts.length,
       itemBuilder: (context, index) {
         final speciePost = speciesPosts[index];
         return FullScreenPost(
-          caption: speciePost.capition,
+          caption: speciePost.caption,
           postImageURL: speciePost.imageURL,
         );
       },

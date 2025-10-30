@@ -10,9 +10,9 @@ class SpeciePostsProvider extends ChangeNotifier {
 
   SpeciePostsProvider({required this.speciePostRepositoryImp});
 
-  Future<void> loadSpeciPosts() async {
+  Future<void> loadSpeciePosts() async {
     final speciePost = await speciePostRepositoryImp.getPostSpecies();
-    speciePost.addAll(speciePost);
+    speciePosts.addAll(speciePost);
     isLoading = false;
     notifyListeners();
   }

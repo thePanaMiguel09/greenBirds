@@ -3,8 +3,21 @@ import 'package:green_birds/presentation/providers/specie_posts_provider.dart';
 import 'package:green_birds/presentation/screens/species/widgets/posts_scrollable_view.dart';
 import 'package:provider/provider.dart';
 
-class SpeciesCatalogScreen extends StatelessWidget {
+class SpeciesCatalogScreen extends StatefulWidget {
   const SpeciesCatalogScreen({super.key});
+
+  @override
+  State<SpeciesCatalogScreen> createState() => _SpeciesCatalogScreenState();
+}
+
+class _SpeciesCatalogScreenState extends State<SpeciesCatalogScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SpeciePostsProvider>().loadSpeciePosts();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +27,7 @@ class SpeciesCatalogScreen extends StatelessWidget {
       extendBody: true,
       extendBodyBehindAppBar: true,
       body: provider.isLoading
-          ? Center(child: CircularProgressIndicator(color: Colors.green))
+          ? Center(child: CircularProgressIndicator(color: Color(0xFF26AD71)))
           : provider.speciePosts.isEmpty
           ? Center(
               child: Column(
@@ -25,6 +38,19 @@ class SpeciesCatalogScreen extends StatelessWidget {
                   Text(
                     'No se encontraron posts',
                     style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+                  ),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<SpeciePostsProvider>().loadSpeciePosts();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF26AD71),
+                    ),
+                    child: Text(
+                      'Reintentar',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),

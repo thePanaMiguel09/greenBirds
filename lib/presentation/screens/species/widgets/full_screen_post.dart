@@ -12,37 +12,38 @@ class FullScreenPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('🖼️ Intentando cargar imagen: $postImageURL');
+
     return Stack(
       fit: StackFit.expand,
       children: [
-        // Imagen de fondo
-        Image.network(
+        Image.asset(
           postImageURL,
           fit: BoxFit.cover,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            );
-          },
           errorBuilder: (context, error, stackTrace) {
             return Container(
               color: Colors.grey[300],
-              child: Icon(
-                Icons.broken_image,
-                size: 80,
-                color: Colors.grey[600],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.broken_image, size: 80, color: Colors.grey[600]),
+                  SizedBox(height: 8),
+                  Text(
+                    'Imagen no encontrada',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    postImageURL,
+                    style: TextStyle(color: Colors.grey[500], fontSize: 12),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             );
           },
         ),
 
-        // Gradiente en la parte inferior para mejor legibilidad
         Positioned(
           left: 0,
           right: 0,
@@ -63,16 +64,14 @@ class FullScreenPost extends StatelessWidget {
           ),
         ),
 
-        // Caption y controles
         Positioned(
           left: 16,
           right: 16,
-          bottom: 40,
+          bottom: 100,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Caption
               if (caption.isNotEmpty)
                 Container(
                   padding: EdgeInsets.all(12),

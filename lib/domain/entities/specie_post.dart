@@ -1,11 +1,11 @@
 class SpeciePost {
-  final String capition;
+  final String caption;
   final String imageURL;
   final String scientificName;
   final int observed;
 
   SpeciePost({
-    required this.capition,
+    required this.caption,
     required this.imageURL,
     required this.scientificName,
     required this.observed,

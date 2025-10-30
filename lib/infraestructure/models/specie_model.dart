@@ -1,13 +1,13 @@
 import 'package:green_birds/domain/entities/specie_post.dart';
 
 class SpeciePostModel {
-  final String capition;
+  final String caption;
   final String imageURL;
   final String scientificName;
   final int observed;
 
   SpeciePostModel({
-    required this.capition,
+    required this.caption,
     required this.imageURL,
     required this.scientificName,
     required this.observed,
@@ -15,14 +15,14 @@ class SpeciePostModel {
 
   factory SpeciePostModel.fromJson(Map<String, dynamic> json) =>
       SpeciePostModel(
-        capition: json["capition"],
+        caption: json["caption"],
         imageURL: json["imageURL"],
         scientificName: json["scientificName"],
         observed: json["observed"],
       );
 
   SpeciePost toSpeciePostEntity() => SpeciePost(
-    capition: capition,
+    caption: caption,
     imageURL: imageURL,
     scientificName: scientificName,
     observed: observed,
