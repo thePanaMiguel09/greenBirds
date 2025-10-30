@@ -9,10 +9,26 @@ class SpeciesCatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<SpeciePostsProvider>();
+
     return Scaffold(
       extendBody: true,
+      extendBodyBehindAppBar: true,
       body: provider.isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: Colors.green))
+          : provider.speciePosts.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error_outline, size: 80, color: Colors.grey[400]),
+                  SizedBox(height: 16),
+                  Text(
+                    'No se encontraron posts',
+                    style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+                  ),
+                ],
+              ),
+            )
           : PostsScrollableView(speciesPosts: provider.speciePosts),
     );
   }
