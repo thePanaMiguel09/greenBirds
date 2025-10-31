@@ -26,6 +26,7 @@ class _SpeciesCatalogScreenState extends State<SpeciesCatalogScreen> {
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
       body: provider.isLoading
           ? Center(child: CircularProgressIndicator(color: Color(0xFF26AD71)))
           : provider.speciePosts.isEmpty

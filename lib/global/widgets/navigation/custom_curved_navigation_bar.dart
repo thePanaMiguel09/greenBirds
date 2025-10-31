@@ -25,11 +25,7 @@ class CustomCurvedNavigationBar extends StatelessWidget {
       items: [
         Icon(Icons.home_outlined, color: Colors.white, size: 30),
 
-        Icon(Icons.map_outlined, color: Colors.white, size: 30),
-
         Icon(Icons.eco_outlined, color: Colors.white, size: 30),
-
-        Icon(Icons.info_outline, color: Colors.white, size: 30),
       ],
     );
   }
