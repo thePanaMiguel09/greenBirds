@@ -4,8 +4,6 @@ import 'package:green_birds/global/widgets/navigation/custom_curved_navigation_b
 import 'package:green_birds/presentation/screens/datailSpecie/detail_specie_screen.dart';
 import 'package:green_birds/presentation/screens/detail/detail_research_screen.dart';
 import 'package:green_birds/presentation/screens/home/home_screen.dart';
-import 'package:green_birds/presentation/screens/information_screen/information_screen.dart';
-import 'package:green_birds/presentation/screens/map/map_screen.dart';
 import 'package:green_birds/presentation/screens/sampling/sampling_research_point_screen.dart';
 import 'package:green_birds/presentation/screens/samplingSpecies/sampling_species_screen.dart';
 import 'package:green_birds/presentation/screens/species/species_catalog_screen.dart';
@@ -23,6 +21,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      backgroundColor: Colors.transparent,
       body: child,
       bottomNavigationBar: CustomCurvedNavigationBar(
         currentIndex: selectedIndex,
@@ -37,13 +37,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
         context.go('/home');
         break;
       case 1:
-        context.go('/map');
-        break;
-      case 2:
         context.go('/species');
-        break;
-      case 3:
-        context.go('/info');
         break;
     }
   }
@@ -58,12 +52,8 @@ final appRouter = GoRouter(
         final location = state.uri.path;
         if (location.startsWith('/home')) {
           selectedIndex = 0;
-        } else if (location.startsWith('/map')) {
-          selectedIndex = 1;
         } else if (location.startsWith('/species')) {
-          selectedIndex = 2;
-        } else if (location.startsWith('/info')) {
-          selectedIndex = 3;
+          selectedIndex = 1;
         }
 
         return ScaffoldWithNavBar(selectedIndex: selectedIndex, child: child);
@@ -76,21 +66,10 @@ final appRouter = GoRouter(
               NoTransitionPage(child: HomeScreen()),
         ),
         GoRoute(
-          path: '/map',
-          name: 'map',
-          pageBuilder: (context, state) => NoTransitionPage(child: MapScreen()),
-        ),
-        GoRoute(
           path: '/species',
           name: 'species',
           pageBuilder: (context, state) =>
               NoTransitionPage(child: SpeciesCatalogScreen()),
-        ),
-        GoRoute(
-          path: '/info',
-          name: 'info',
-          pageBuilder: (context, state) =>
-              NoTransitionPage(child: InformationScreen()),
         ),
       ],
     ),
