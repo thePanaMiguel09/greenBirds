@@ -23,6 +23,24 @@ class _SpeciesCatalogScreenState extends State<SpeciesCatalogScreen> {
   Widget build(BuildContext context) {
     final provider = context.watch<SpeciePostsProvider>();
 
+    if (provider.isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(color: Color(0xFF26AD71)),
+              SizedBox(height: 5),
+              Text(
+                'Cargando posts...',
+                style: TextStyle(color: Color(0xFF26AD71)),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
